@@ -8,6 +8,7 @@
     </ul>
 
     <router-link :to="postsLink">Posts</router-link>
+    <router-link :to="nextUserLink">Next User Link</router-link>
   </div>
 </template>
 
@@ -21,22 +22,33 @@ export default {
       userData: {}
     };
   },
+  watch: {
+    $route: "fetchData"
+  },
+  methods: {
+    fetchData() {
+      var id = this.$route.params.id;
+      if (id) {
+        fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+          .then(res => {
+            return res.json();
+          })
+          .then(data => {
+            this.userData = data;
+          });
+      }
+    }
+  },
   computed: {
     postsLink() {
       return `/user/${this.$route.params.id}/posts`;
+    },
+    nextUserLink() {
+      return `/user/${parseInt(this.$route.params.id) + 1}`;
     }
   },
   created() {
-      var id =this.$route.params.id;
-      if(id){
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        this.userData = data;
-      });
-      }
+    this.fetchData();
   },
   components: { UserItem }
 };
