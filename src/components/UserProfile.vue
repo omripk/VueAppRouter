@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a @click="goBack" href="#">Go Back To User List</a>
     <h1>{{userData.name}}</h1>
     <ul>
       <li>{{userData.phone}}</li>
@@ -8,6 +9,7 @@
     </ul>
 
     <router-link :to="postsLink">Posts</router-link>
+    <br />
     <router-link :to="nextUserLink">Next User Link</router-link>
   </div>
 </template>
@@ -37,6 +39,12 @@ export default {
             this.userData = data;
           });
       }
+    },
+    goBack() {
+      this.$router.push({ name: "home" });
+
+      // Yeni tabda -1 oldugu ıcın yenı sekmeye gıder
+      //   this.$router.go("-1");
     }
   },
   computed: {
