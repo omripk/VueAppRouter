@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     profileLink() {
-      return "/user/${this.user.id}";
+      return `/user/${this.user.id}`;
     }
   }
 };

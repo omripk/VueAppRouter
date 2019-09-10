@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="user in users">
-      <user-item :user="user"></user-item>
+      <user-item :user="user" :key="user.id"></user-item>
     </template>
   </div>
 </template>

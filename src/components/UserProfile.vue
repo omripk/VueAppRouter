@@ -1,5 +1,14 @@
 <template>
-  <div>Hello User</div>
+  <div>
+    <h1>{{userData.name}}</h1>
+    <ul>
+      <li>{{userData.phone}}</li>
+      <li>{{userData.website}}</li>
+      <li>{{userData.email}}</li>
+    </ul>
+
+    <router-link :to="postsLink">Posts</router-link>
+  </div>
 </template>
 
 <script>
@@ -9,17 +18,25 @@ export default {
   name: "UserProfile",
   data() {
     return {
-      users: []
+      userData: {}
     };
   },
+  computed: {
+    postsLink() {
+      return `/user/${this.$route.params.id}/posts`;
+    }
+  },
   created() {
-    fetch("https://jsonplaceholder.typicode.com/users")
+      var id =this.$route.params.id;
+      if(id){
+    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then(res => {
         return res.json();
       })
-      .then(users => {
-        this.users = users;
+      .then(data => {
+        this.userData = data;
       });
+      }
   },
   components: { UserItem }
 };
