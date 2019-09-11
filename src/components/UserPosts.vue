@@ -1,11 +1,11 @@
 <template>
   <div>
     <router-link :to="userLink">Back to User</router-link>
-    <template v-for="post in posts">
+    <div v-for="post in posts" v-bind:key="post.id">
       <h4>{{post.title}}</h4>
       <p>{{post.body}}</p>
       <hr />
-    </template>
+    </div>
   </div>
 </template>
 
